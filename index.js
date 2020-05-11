@@ -5,6 +5,7 @@ const { promisify } = require('util');
 const imagemin = require('imagemin');
 const imageminJpegtran = require('imagemin-jpegtran');
 const imageminPngquant = require('imagemin-pngquant');
+const imageminWebp = require('imagemin-webp');
 const rimraf = require('rimraf');
 const filesize = require('filesize');
 
@@ -38,7 +39,8 @@ const processFunc = async (basePath, outputPath) => {
   } else if (stats.isFile()) {
     const [file] = await imagemin([basePath], {
       destination: path.resolve(outputPath, '..'),
-      plugins: [imageminPngquant({ quality: [0.6, 0.8] })],
+      plugins: [imageminWebp({ quality: 80 })],
+      //   plugins: [imageminPngquant({ quality: [0.6, 0.8] })],
     });
     console.log(
       'file: ',
